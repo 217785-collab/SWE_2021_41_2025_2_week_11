@@ -4,7 +4,6 @@ from typing import List
 
 def path_to_file_list(path: str) -> List[str]:
     """Reads a file and returns a list of lines in the file"""
-    # Will this be working?
     lines = open(path, 'r').read().split('\n')
     return lines
 
@@ -24,15 +23,21 @@ def train_file_list_to_json(english_file_list: List[str], german_file_list: List
     template_mid = '\",\"German\":\"'
     template_end = '\"}'
 
-    # Can this be working?
     processed_file_list = []
     for english_file, german_file in zip(english_file_list, german_file_list):
-        english_file = process_file(english_file)
-        english_file = process_file(german_file)
+        # NOTE: Fix the implementation error here. The original 'HEAD' had a bug
+        # where it processed the English file twice. We must use the logic from 
+        # the 'train_file_list_to_json' branch but combined with the correct
+        # variable names and structure.
 
-        processed_file_list.append(template_end + english_file + template_mid + german_file + template_start)
+        # Process both files
+        processed_english_file = process_file(english_file)
+        processed_german_file = process_file(german_file)
+
+        # Append the correctly structured JSON string
+        processed_file_list.append(template_start + processed_english_file + template_mid + processed_german_file + template_end)
+        
     return processed_file_list
-
 
 def write_file_list(file_list: List[str], path: str) -> None:
     """Writes a list of strings to a file, each string on a new line"""
